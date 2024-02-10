@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<form action="/search" method="post">
+    <input type="text" name="title" id="title" placeholder="Enter Anime Title">
+    <button>Search</button>
+</form>
+    {% for anime in animes %}
+    <div class="wrapper">
+        <a href="/anime/{{ anime.mal_id }}">
+            <img src="{{ anime.images.jpg.large_image_url }}" alt="anime image">
+        </a>
+    </div>
+    {% endfor %}
+</body>
+</html>
