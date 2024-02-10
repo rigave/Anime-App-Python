@@ -1,9 +1,6 @@
 import requests
-from flask import Flask, render_template, request, redirect
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from flask import Flask, render_template, request
+
 
 app = Flask(__name__)
 
