@@ -10,6 +10,10 @@
     <input type="text" name="title" id="title" placeholder="Enter Anime Title">
     <button>Search</button>
 </form>
+<form action="/characters" method="post">
+    <input type="text" name="character_name" id="character" placeholder="Enter Anime Character">
+    <button>Search</button>
+</form>
     {% for anime in animes %}
     <div class="wrapper">
         <a href="/anime/{{ anime.mal_id }}">

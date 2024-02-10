@@ -7,5 +7,11 @@
 <body>
     <h1>{{ anime.title }}</h1>
     <img src="{{ anime.images.jpg.image_url}}" alt="">
+    <p>{{ anime.synopsis }}</p>
+    {% for character in anime_characters %}}
+        <a href="/character/{{ character.character.mal_id}}">
+            <img src="{{ character.character.images.jpg.image_url }}" alt="">
+        </a>
+    {% endfor %}}
 </body>
 </html>

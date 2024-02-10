@@ -52,11 +52,30 @@ def favorite():
     favorite_anime = fetch_data("top/anime?filter=favorite")
     return render_template ('index.html', animes=favorite_anime)
 
-@app.route('/anime/<int:id>', methods=["GET", "POST"])
+
+@app.route('/anime/<int:id>')
 def show_anime(id):
     show_anime = fetch_data(f"anime/{id}/full")
-    return render_template("show.html", anime=show_anime)
+    anime_characters = fetch_data(f"anime/{id}/characters")
+    return render_template("show.html", anime=show_anime, anime_characters=anime_characters)
 
+@app.route('/characters', methods=["GET", "POST"])
+def characters():
+    search_character = request.form['character_name']
+    if request.method == "POST":
+        characters = fetch_data(f"characters?q={search_character}")
+        return render_template('characters.html', characters=characters)
+
+@app.route('/character/<int:id>')
+def show_character(id):
+    character = fetch_data(f"characters/{id}/full")
+    character_pic = fetch_data(f"characters/{id}/pictures")
+    return render_template('characterShow.html', character=character, character_pic=character_pic)
+
+@app.route('/characters/top')
+def top_characters():
+    top_characters = fetch_data("top/characters")
+    return render_template('characters.html', characters=top_characters)
 
 if __name__ == '__main__':
     app.run(debug=True)
