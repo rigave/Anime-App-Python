@@ -1,17 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>{{ anime.title }}</h1>
-    <img src="{{ anime.images.jpg.image_url}}" alt="">
-    <p>{{ anime.synopsis }}</p>
-    {% for character in anime_characters %}}
-        <a href="/character/{{ character.character.mal_id}}">
-            <img src="{{ character.character.images.jpg.image_url }}" alt="">
-        </a>
-    {% endfor %}}
-</body>
-</html>
+{% include "header.html" %}
+
+<div class="container">
+    <h1 class="mt-5">{{anime.title}}</h1>
+    <div class="card mb-3">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="{{ anime.images.jpg.image_url}}" class="img-fluid rounded-start" alt="anime image">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <div class="row">
+                      <dl class="row">
+                          <dt class="col-sm-3"></dt>
+                          <dd class="col-sm-9">
+                            <dl class="row mb-3">
+                                <dt class="col-sm-4">Aired:</dt>
+                                <dd class="col-sm-8 mb-3">
+                                    {% if(anime.aired.to == None or anime.aired.from == None) %}
+                                        ?
+                                    {% else %}
+                                        from {{ anime.aired.from[:10] }} to {{ anime.aired.to[:10] }}
+                                    {% endif %}
+                                </dd>
+
+                                <dt class="col-sm-4">Rating:</dt>
+                                <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.rating}}
+                                    {% endif %}
+                                </dd>
+
+                                <dt class="col-sm-4">Genres:</dt>
+                                <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {% for genre in anime.genres %}
+                                            {{ genre.name }}
+                                        {% endfor %}}
+                                    {% endif %}
+                                </dd>
+
+                                <dt class="col-sm-4">Rank:</dt>
+                                <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{ anime.rank }}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Score:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.score}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Scored By:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.scored_by}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Popularity:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.popularity}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Status:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.status}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Source:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.source}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Season:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.season}}
+                                    {% endif %}
+                                </dd>
+
+                              <dt class="col-sm-4">Duration:</dt>
+                              <dd class="col-sm-8 mb-3">
+                                    {% if(anime.rating == None) %}
+                                        ?
+                                    {% else %}
+                                        {{anime.duration}}
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                          </dd>
+                        </dl>
+                    </div>
+                  </div>
+              </div>
+            <p class="card-text pb-3">
+                {{ anime.synopsis[:500] }}
+                <span id="dots">...</span>
+                <span id="more">{{ anime.synopsis[551:-1] }}</span>
+                <a class="link-info btn" onclick="myFunction()" id="myBtn">Read more</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center myt-5 mb-3">
+    <iframe class="video"
+        width="640"
+        height="360"
+        src="https://www.youtube.com/embed/{{ anime.trailer }}"
+        allow="accelerometer; autoplay; clipboard-write, encrypted-media; gyroscope;"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<div class="card mb-3">
+    <div class="row m-3 p-3">
+        {% for character in anime_characters %}
+            <div class="col-lg-2 col-md-4">
+                <a href="/character/{{ character.character.mal_id}}">
+                    <img src="{{ character.character.images.jpg.image_url }}" class="bd-placeholder-img rounded-circle" width="100" height="100" role="img" style="object-fit: cover;" alt="...">
+                    <h5 class="fw-normal"><strong>{{character.character.name}}</strong></h5>
+                    <p class="text-muted"> {{character.role}} </p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "footer.html" %}

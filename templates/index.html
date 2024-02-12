@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Anime</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
-<body>
-<form action="/search" method="post">
-    <input type="text" name="title" id="title" placeholder="Enter Anime Title">
-    <button>Search</button>
-</form>
-<form action="/characters" method="post">
-    <input type="text" name="character_name" id="character" placeholder="Enter Anime Character">
-    <button>Search</button>
-</form>
-    {% for anime in animes %}
-    <div class="wrapper">
-        <a href="/anime/{{ anime.mal_id }}">
-            <img src="{{ anime.images.jpg.large_image_url }}" alt="anime image">
-        </a>
-    </div>
-    {% endfor %}
-</body>
-</html>
+{% include "header.html" %}
+
+<div class="anime-card">
+    {% if(animes.length == 0) %}
+      <h5 class="text-danger text-center"> Sorry!!! Not Data Found</h5>
+    {% else %}
+      {% for anime in animes %}
+        <a class="wrapper" href="/anime/{{ anime.mal_id }}"><img class="image" src="{{ anime.images.jpg.large_image_url }}" alt=""></a>
+      {% endfor %}
+    {% endif %}
+</div>
+
+{% include "footer.html" %}

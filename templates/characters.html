@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% for character in characters %}
-    <a href="/character/{{ character.mal_id}}">
-        <img src="{{ character.images.jpg.image_url }}" alt="">
-    </a>
-    {% endfor %}
-</body>
-</html>
+{% include "header.html" %}
+
+<div class="anime-card">
+    {% if(characters.length == 0) %}
+      <h5 class="text-danger text-center"> Sorry!!! Not Data Found</h5>
+    {% else %}
+      {% for character in characters %}
+        <a class="wrapper" href="/character/{{ character.mal_id}}"><img class="image" src="{{ character.images.jpg.image_url }}" alt=""></a>
+      {% endfor %}
+    {% endif %}
+</div>
+{% include "footer.html" %}
